@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import Auth from "../utils/auth.js"
-import heart from "../assets/images/cardiogram.png"
+import cardiogram from "../assets/images/cardiogram.png"
 
 export default function Header() {
     const loggedIn = Auth.loggedIn();
@@ -17,7 +17,7 @@ return (
         {loggedIn ? (
             <>
             <Navbar.Brand as ={Link} to="/" className="brand brand-logged d-flex align-items-center">
-                <img alt="cardiogram" style={{ display: "inline" }} src={cardiogram} className="heart-icon" />
+                <img alt="heart" style={{ display: "inline" }} src={cardiogram} className="heart-icon" />
                 Exercise Tracker
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
