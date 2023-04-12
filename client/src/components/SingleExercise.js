@@ -8,7 +8,7 @@ import { getCardioById, getResistanceById, deleteCardio, deleteResistance } from
 import { formatDate } from '../utils/dateFormat';
 import Header from "./Header";
 import cardioIcon from "../assets/images/treadmill.png"
-import resistance from "../assets/images/fitness.png"
+import resistanceIcon from "../assets/images/fitness.png"
 
 export default function SingleExercise() {
     const { id, type } = useParams();

@@ -62,7 +62,7 @@
   
   /* --------------------------------- 2. home page---------------------------------  */
   .homepage {
-    background-image: url("./assets/images/run.jpg");
+    background-image: url("./assets/images/running.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -263,7 +263,7 @@
   
   .cardio,
   .single-cardio {
-    background-image: url("./assets/images/running.jpg");
+    background-image: url("./assets/images/jogging.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -273,7 +273,7 @@
   
   .resistance,
   .single-resistance {
-    background-image: url("./assets/images/dumbell.jpeg");
+    background-image: url("./assets/images/weights.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

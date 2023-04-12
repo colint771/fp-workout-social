@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import Auth from "../utils/auth";
 import Header from "../components/Header";
 import treadmillIcon from "../assets/images/treadmill.png"
-import weightIcon from "../assets/images/fitness.png"
+import resistanceIcon from "../assets/images/fitness.png"
 
 export default function Exercise() {
     const loggedIn = Auth.loggedIn();

@@ -18,6 +18,7 @@ export default function Signup() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    console.log(name, value)
 
     setFormState({
       ...formState,

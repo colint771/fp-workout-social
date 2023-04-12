@@ -6,10 +6,10 @@ import { formatDate } from '../utils/dateFormat';
 import Header from '../components/Header';
 import treadmillIcon from "../assets/images/treadmill.png"
 import weightIcon from "../assets/images/fitness.png"
-import { log } from 'console';
-import { get } from 'http';
-import { NavItem } from 'react-bootstrap';
-import e from 'express';
+// import { log } from 'console';
+// import { get } from 'http';
+// import { NavItem } from 'react-bootstrap';
+// import e from 'express';
 
 export default function History() {
     const [userData, setUserData] = useState({});
@@ -76,14 +76,14 @@ export default function History() {
                   <Link className='text-decoration-none' to={`/history/${exercise.type}/${exercise._id}`}>
                     {exercise.type === "cardio" ? (
                       <div className="history-card cardio-title d-flex">
-                        <div className='d-flex align-items-center'><img alt="cardio" src={cardioIcon} className="history-icon" /></div>
+                        <div className='d-flex align-items-center'><img alt="cardio" src={treadmillIcon} className="history-icon" /></div>
                         <div>
                           <p className='history-name'>{exercise.name}</p>
                           <p className='history-index'>{exercise.distance} miles </p>
                         </div>
                       </div>) : (
                       <div className="history-card resistance-title d-flex">
-                        <div className='d-flex align-items-center'><img alt="resistance" src={resistanceIcon} className="history-icon" /></div>
+                        <div className='d-flex align-items-center'><img alt="resistance" src={weightIcon} className="history-icon" /></div>
                         <div >
                           <p className='history-name'>{exercise.name}</p>
                           <p className='history-index'>{exercise.weight} pounds </p>

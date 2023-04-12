@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Auth from "../utils/auth";
-import { createResistance } from '../utils/API';
+import { createResistance } from '../utils/Api';
 import Header from "./Header";
 import resistanceIcon from '../assets/images/weights.jpg'
 
@@ -63,7 +63,7 @@ export default function Resistance() {
             }
         }
 
-        setResistanceForm({
+        setReistanceForm({
             name: "",
             weight: "",
             sets: "",

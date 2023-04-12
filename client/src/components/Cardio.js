@@ -3,12 +3,12 @@ import { Navigate } from 'react-router-dom';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Auth from "../utils/auth";
-import { createCardio } from '../utils/API';
+import { createCardio } from '../utils/Api';
 import Header from "./Header";
 import cardioIcon from "../assets/images/treadmill.png"
 
 export default function Cardio() {
-    const [cardioForm, setCardioFormn] = useState({
+    const [cardioForm, setCardioForm] = useState({
         name: "",
         distance: "",
         duration: "",
