@@ -2,13 +2,14 @@
     "name": "fp-workout-social",
     "version": "0.1.0",
     "private": true,
-    "proxy": "http://localhost:3000/",
+    "proxy": "/api",
     "dependencies": {
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.4.0",
         "@testing-library/user-event": "^13.5.0",
         "bootstrap": "^5.2.3",
         "jwt-decode": "^3.1.2",
+        "node": "^19.8.1",
         "react": "^18.2.0",
         "react-bootstrap": "^2.6.0",
         "react-confirm-alert": "^3.0.6",
@@ -26,20 +27,20 @@
     },
     "eslintConfig": {
         "extends": [
-          "react-app",
-          "react-app/jest"
+            "react-app",
+            "react-app/jest"
         ]
-      },
-      "browserslist": {
+    },
+    "browserslist": {
         "production": [
-          ">0.2%",
-          "not dead",
-          "not op_mini all"
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
         ],
         "development": [
-          "last 1 chrome version",
-          "last 1 firefox version",
-          "last 1 safari version"
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
         ]
     }
 }
