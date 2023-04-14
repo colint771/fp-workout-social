@@ -16,6 +16,10 @@ module.exports = {
 
     res.json(foundUser);
   },
+  
+  // async helloWorld({ body }, res) {
+  //   const helloWorld = await helloWorld
+  // },
 
   async createUser({ body }, res) {
     const user = await User.create(body);
