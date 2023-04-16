@@ -9,7 +9,7 @@
   * [Usage](#usage)
   * [License](#license)
   * [Contributing](#contributing)
-  * [Tests](#tests)
+  * [Contributors](#contributors)
   * [Questions](#questions)
   
   ## [Description](#table-of-contents)
@@ -31,9 +31,11 @@
   
     Thank you for your interest contributing; however, right now, I will not be accepting outside contributions.
 
-    Icons are from: [FlatIcon](https://www.flaticon.com/free-icon/)
+  ## [Contributors](#table-of-contents)
 
-    Images are from [Pexels](https://www.pexels.com/)
+  Icons are from: [FlatIcon](https://www.flaticon.com/free-icon/)
+
+  Images are from [Pexels](https://www.pexels.com/)
 
       
 
