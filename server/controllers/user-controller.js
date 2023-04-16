@@ -42,7 +42,7 @@ module.exports = {
     const correctPw = await user.isCorrectPassword(body.password);
 
     if (!correctPw) {
-      return res.status(400).json({ message: "Wrong password!" });
+      return res.status(400).json({ message: "Incorrect password!" });
     }
     const token = signToken(user);
     res.json({ token, user });
