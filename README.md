@@ -23,6 +23,8 @@
   ## [Usage](#table-of-contents)
 
   To use this application, follow this link
+
+  ![img](client/src/assets/screenshots/Ex_tracker_ss.png)
   
    
 
