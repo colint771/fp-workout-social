@@ -3,6 +3,8 @@
     "version": "1.0.0",
     "description": "",
     "main": "server.js",
+    "engines": { "node": "16.9.0",
+    "npm": "8.19.3"},
     "scripts": {
         "start": "node server.js --ignore client",
         "watch": "nodemon server.js --ignore '../client/"
