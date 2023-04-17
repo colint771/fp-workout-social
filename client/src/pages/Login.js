@@ -1,85 +1,91 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { loginUser } from  "../utils/Api";
+import { loginUser } from "../utils/API";
 import Auth from "../utils/auth";
 import Header from "../components/Header";
 
 export default function Login() {
-    const [formState, setFormState] = useState({ email: "", password: "" });
-    const [showAlert, setShowAlert] = useState(false);
-    const loggedIn = Auth.loggedIn();
-    const handleChange = (event) => {
-        const { name, value } = event.target;
+  const [formState, setFormState] = useState({ email: "", password: "" });
+  const [showAlert, setShowAlert] = useState(false);
 
-        setFormState({
-            ...formState,
-            [name]: value,
-        });
-    };
-    
-    const handleFormSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            const response = await loginUser(formState);
-            if (!response.ok) {
-                throw new Error("Error! please try again.");
-            }
+  const loggedIn = Auth.loggedIn();
 
-            const { token, user } = await response.json();
-            Auth.login(token);
-            console.log(user);
-        } catch (err) {
-            console.error(err);
-            setShowAlert(true);
-        }
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-        setFormState({
-            email: "",
-            password: "",
-        });
-    };
-    if (loggedIn) {
-        return <Navigate to="/" />;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await loginUser(formState);
+
+      if (!response.ok) {
+        throw new Error("something went wrong");
+      }
+
+
+      const { token, user } = await response.json();
+      Auth.login(token);
+      console.log(user);
+    } catch (err) {
+      console.error(err);
+      setShowAlert(true);
     }
 
-    return (
-        <div className="signup d-flex flex-column align-items-center justify-content-center text-center">
-            <Header />
-            <form onSubmit={handleFormSubmit} className="signup-form d-flex flex-column">
-                {/* --------------------email-------------------- */}
-                <label htmlFor="email">Email</label>
-                <input
-                    className="form-input"
-                    value={formState.email}
-                    placeholder="youremail@gmail.com"
-                    name="email"
-                    type="email"
-                    onChange={handleChange}
-                />
+    setFormState({
+      email: "",
+      password: "",
+    });
+  };
 
-                {/* -------------------- password-------------------- */}
-                <label htmlFor="password">Password</label>
-                <input
-                    className="form-input"
-                    value={formState.password}
-                    placeholder="********"
-                    name="password"
-                    type="password"
-                    onChange={handleChange}
-                />
+  if (loggedIn) {
+    return <Navigate to="/" />;
+  }
 
-                {/* --------------------login btn-------------------- */}
-                <div className="btn-div">
-                    <button disabled={!(formState.email && formState.password)}
-                        className="signup-btn mx-auto my-auto">Login</button>
-                </div>
-                {/* --------------------signup link-------------------- */}
-                <p className="link-btn">
-                    New Here?{' '}
-                    <Link to="/signup" >Create an Account</Link>
-                </p>
-                {showAlert && <div className="err-message">Login failed</div>}
-            </form>
+  return (
+    <div className="signup d-flex flex-column align-items-center justify-content-center text-center">
+      <Header />
+      <form onSubmit={handleFormSubmit} className="signup-form d-flex flex-column">
+        {/* --------------------email-------------------- */}
+        <label htmlFor="email">Email</label>
+        <input
+          className="form-input"
+          value={formState.email}
+          placeholder="youremail@gmail.com"
+          name="email"
+          type="email"
+          onChange={handleChange}
+        />
+
+        {/* -------------------- password-------------------- */}
+        <label htmlFor="password">Password</label>
+        <input
+          className="form-input"
+          value={formState.password}
+          placeholder="********"
+          name="password"
+          type="password"
+          onChange={handleChange}
+        />
+
+        {/* --------------------login btn-------------------- */}
+        <div className="btn-div">
+          <button disabled={!(formState.email && formState.password)}
+            className="signup-btn mx-auto my-auto">Login</button>
         </div>
-    );
+        {/* --------------------signup link-------------------- */}
+        <p className="link-btn">
+          Don't have an account?{' '}
+          <Link to="/signup" >Create one</Link>
+        </p>
+        {showAlert && <div className="err-message">Login failed</div>}
+      </form>
+    </div>
+  );
 }

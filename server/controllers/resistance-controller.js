@@ -1,6 +1,7 @@
 const { Resistance, User } = require("../models");
 
 module.exports = {
+  // create Resistance
   createResistance({ body }, res) {
     Resistance.create(body)
       .then((dbResistanceData) => {
@@ -19,6 +20,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
+  // get one Resistance by id
   getResistanceById({ params }, res) {
     Resistance.findOne({ _id: params.id })
       .then((dbResistanceData) => {
@@ -30,6 +32,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
+  // delete resistance data
   deleteResistance({ params }, res) {
     Resistance.findOneAndDelete({ _id: params.id })
       .then((dbResistanceData) => {
@@ -37,6 +40,7 @@ module.exports = {
           res.status(404).json({ message: "No resistance data found with this id!" });
           return;
         }
+        // remove resistance on user data
         return User.findOneAndUpdate(
           { resistance: params.id },
           { $pull: { resistance: params.id } },

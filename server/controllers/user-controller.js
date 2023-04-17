@@ -2,6 +2,7 @@ const { User } = require("../models");
 const { signToken } = require("../utils/auth");
 
 module.exports = {
+  // get a single user by id or username
   async getSingleUser({ user = null, params }, res) {
     const foundUser = await User.findOne({
       $or: [{ _id: user ? user._id : params.id }, { username: params.username }],
@@ -16,11 +17,8 @@ module.exports = {
 
     res.json(foundUser);
   },
-  
-  // async helloWorld({ body }, res) {
-  //   const helloWorld = await helloWorld
-  // },
 
+  // create a user, sign a token, and send it back to sign up page
   async createUser({ body }, res) {
     const user = await User.create(body);
 
@@ -31,6 +29,7 @@ module.exports = {
     res.json({ token, user });
   },
 
+  // login a user, sign a token, and send it back to login page
   async login({ body }, res) {
     const user = await User.findOne({
       $or: [{ username: body.username }, { email: body.email }],
@@ -42,7 +41,7 @@ module.exports = {
     const correctPw = await user.isCorrectPassword(body.password);
 
     if (!correctPw) {
-      return res.status(400).json({ message: "Incorrect password!" });
+      return res.status(400).json({ message: "Wrong password!" });
     }
     const token = signToken(user);
     res.json({ token, user });

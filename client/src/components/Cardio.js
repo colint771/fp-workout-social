@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Auth from "../utils/auth";
-import { createCardio } from '../utils/Api';
+import { createCardio } from '../utils/API';
 import Header from "./Header";
 import cardioIcon from "../assets/images/treadmill.png"
 
@@ -37,10 +37,13 @@ export default function Cardio() {
     const handleCardioSubmit = async (event) => {
         event.preventDefault();
 
+
         const token = loggedIn ? Auth.getToken() : null;
         if (!token) return false;
 
+
         const userId = Auth.getUserId();
+
 
         if (validateForm(cardioForm)) {
             try {
@@ -49,10 +52,10 @@ export default function Cardio() {
                 const response = await createCardio(cardioForm, token);
 
                 if (!response.ok) {
-                    throw new Error('something went wrong!');
+                    throw new Error('something is wrong!');
                 }
 
-                setMessage("Cardio successfully added!")
+                setMessage("Cardio added!")
                 setTimeout(() => {
                     setMessage("")
                 }, 3000);
@@ -61,7 +64,6 @@ export default function Cardio() {
             }
         }
 
-        
         setCardioForm({
             name: "",
             distance: "",

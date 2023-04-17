@@ -1,27 +1,23 @@
 {
-    "name": "server",
-    "version": "1.0.0",
-    "description": "",
-    "main": "server.js",
-    "engines": { "node": "16.9.0",
-    "npm": "8.19.3"},
-    "scripts": {
-        "start": "node server.js --ignore client",
-        "watch": "nodemon server.js --ignore '../client/"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "bcrypt": "^5.0.1",
-        "express": "^4.17.3",
-        "jsonwebtoken": "^8.5.1",
-        "jwt-decode": "^3.1.2",
-        "mongoose": "^6.8.1",
-        "node": "^16.9.0"
-    },
-    "devDependencies": {
-        "nodemon": "^2.0.20",
-        "concurrently": "8.0.1"
-    }
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "watch": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
+    "mongoose": "^6.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
 }

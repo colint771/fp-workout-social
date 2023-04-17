@@ -3,12 +3,12 @@ import { Navigate } from 'react-router-dom';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Auth from "../utils/auth";
-import { createResistance } from '../utils/Api';
+import { createResistance } from '../utils/API';
 import Header from "./Header";
-import resistanceIcon from '../assets/images/weights.jpg'
+import resistanceIcon from "../assets/images/fitness.png"
 
 export default function Resistance() {
-    const [resistanceForm, setReistanceForm] = useState({
+    const [resistanceForm, setResistanceForm] = useState({
         name: "",
         weight: "",
         sets: "",
@@ -28,7 +28,8 @@ export default function Resistance() {
 
     const handleResistanceChange = (event) => {
         const { name, value } = event.target;
-        setReistanceForm({ ...resistanceForm, [name]: value })
+        setResistanceForm({ ...resistanceForm, [name]: value })
+
     }
 
     const validateForm = (form) => {
@@ -38,22 +39,26 @@ export default function Resistance() {
     const handleResistanceSubmit = async (event) => {
         event.preventDefault();
 
+        
         const token = loggedIn ? Auth.getToken() : null;
         if (!token) return false;
 
+         
         const userId = Auth.getUserId();
 
+        
         if (validateForm(resistanceForm)) {
             try {
+                
                 resistanceForm.userId = userId;
 
                 const response = await createResistance(resistanceForm, token);
 
                 if (!response.ok) {
-                    throw new Error('something went wrong!');
+                    throw new Error('something is wrong!');
                 }
 
-                setMessage("Resistance successfully created!")
+                setMessage("Resistance created!")
                 setTimeout(() => {
                     setMessage("")
                 }, 3000);
@@ -63,7 +68,7 @@ export default function Resistance() {
             }
         }
 
-        setReistanceForm({
+        setResistanceForm({
             name: "",
             weight: "",
             sets: "",

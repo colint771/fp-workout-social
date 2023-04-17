@@ -1,63 +1,72 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate, Link  } from 'react-router-dom';
-import { getMe } from '../utils/Api';
-import Auth from '../utils/auth';
+import { Navigate, Link } from 'react-router-dom';
+import { getMe } from '../utils/API';
+import Auth from "../utils/auth"
 import { formatDate } from '../utils/dateFormat';
-import Header from '../components/Header';
-import treadmillIcon from "../assets/images/treadmill.png"
-import weightIcon from "../assets/images/fitness.png"
-// import { log } from 'console';
-// import { get } from 'http';
-// import { NavItem } from 'react-bootstrap';
-// import e from 'express';
+import Header from "../components/Header";
+import cardioIcon from "../assets/images/treadmill.png"
+import resistanceIcon from "../assets/images/fitness.png"
 
 export default function History() {
-    const [userData, setUserData] = useState({});
-    const [exerciseData, setExerciseData] = useState([])
-    const [displayedItems, setDisplayItems] = useState(6);
-    const loggedIn = Auth.loggedIn();
-    let currentDate;
+  const [userData, setUserData] = useState({});
+  const [exerciseData, setExerciseData] = useState([])
+  const [displayedItems, setDisplayedItems] = useState(6);
 
-    useEffect(() => {
-        const getUserData = async () => {
-            try {
-                const token = loggedIn ? Auth.getToken() : null;
-                if (!token) return false;
-                const response = await getMe(token)
-                if (!response.ok) {
-                    throw new Error("error found, please try again!")
-                }
-                const user = await response.json()
-                if (user.cardio && user.resistance) {
-                    const cardio = user.cardio;
-                    const resistance = user.resistance;
-                    const exercise = cardio.concat(resistance);
+  const loggedIn = Auth.loggedIn();
+  let currentDate;
 
-                    exercise.sort((a,b) => {
-                        return new Date(b.date) - new Date(a.date)
-                    })
-                    exercise.forEach(item => {
-                        item.date = formatDate(item.date)
-                    });
-                    setUserData(user);
-                    setExerciseData(exercise)
+  // everytime loggedIn/userdata changes, the getuserdata runs
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        //get token
+        const token = loggedIn ? Auth.getToken() : null;
+        if (!token) return false;
 
-                }
-            } catch (err) { console.error(err) }
-        };
-        getUserData();
-    }, [loggedIn, userData])
+        const response = await getMe(token)
 
-    function showMoreItems() {
-        setDisplayItems(displayedItems + 6);
-    }
-    
-    if(!loggedIn) {
-        return <Navigate to="/login" />;
-    }
+        if (!response.ok) {
+          throw new Error("something went wrong!")
+        }
 
-    return (
-        <div className='history'>
+        const user = await response.json()
+
+        // combine cardio and resistance data together
+        if (user.cardio && user.resistance) {
+          const cardio = user.cardio;
+          const resistance = user.resistance;
+          const exercise = cardio.concat(resistance);
+
+          // sort exercise data by date
+          exercise.sort((a, b) => {
+            return new Date(b.date) - new Date(a.date)
+          })
+
+          //format date in exercise data
+          exercise.forEach(item => {
+            item.date = formatDate(item.date)
+          });
+
+          setUserData(user);
+          setExerciseData(exercise)
+        }
+      } catch (err) { console.error(err) }
+    };
+    getUserData();
+  }, [loggedIn, userData])
+
+  function showMoreItems() {
+    setDisplayedItems(displayedItems + 6);
+  }
+
+
+  // If the user is not logged in, redirect to the login page
+  if (!loggedIn) {
+    return <Navigate to="/login" />;
+  }
+
+  return (
+    <div className='history'>
       <Header />
       <div className="d-flex flex-column align-items-center">
         <h2 className='title'>History</h2>
@@ -76,14 +85,14 @@ export default function History() {
                   <Link className='text-decoration-none' to={`/history/${exercise.type}/${exercise._id}`}>
                     {exercise.type === "cardio" ? (
                       <div className="history-card cardio-title d-flex">
-                        <div className='d-flex align-items-center'><img alt="cardio" src={treadmillIcon} className="history-icon" /></div>
+                        <div className='d-flex align-items-center'><img alt="cardio" src={cardioIcon} className="history-icon" /></div>
                         <div>
                           <p className='history-name'>{exercise.name}</p>
                           <p className='history-index'>{exercise.distance} miles </p>
                         </div>
                       </div>) : (
                       <div className="history-card resistance-title d-flex">
-                        <div className='d-flex align-items-center'><img alt="resistance" src={weightIcon} className="history-icon" /></div>
+                        <div className='d-flex align-items-center'><img alt="resistance" src={resistanceIcon} className="history-icon" /></div>
                         <div >
                           <p className='history-name'>{exercise.name}</p>
                           <p className='history-index'>{exercise.weight} pounds </p>
@@ -111,5 +120,5 @@ export default function History() {
           )}
       </div >
     </div >
-    )
+  )
 }

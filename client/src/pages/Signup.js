@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { createUser } from "../utils/Api";
+import { createUser } from "../utils/API";
 import Auth from "../utils/auth";
 import Header from "../components/Header";
 
@@ -8,17 +8,19 @@ import Header from "../components/Header";
 export default function Signup() {
   const loggedIn = Auth.loggedIn();
 
+  // set up the orginal state of the form
   const [formState, setFormState] = useState({
     username: "",
     email: "",
     password: "",
   });
 
+  // set state for alert
   const [showAlert, setShowAlert] = useState(false);
 
+  // update state based on form input
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value)
 
     setFormState({
       ...formState,
@@ -26,17 +28,23 @@ export default function Signup() {
     });
   };
 
+  // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
+    // use try/catch to handle errors
     try {
+      // create new users
       const response = await createUser(formState);
 
+      // check the response
       if (!response.ok) {
         throw new Error("something went wrong!");
       }
 
+      // get token and user data from server
       const { token } = await response.json();
+      // use authenticaiton functionality
       Auth.login(token);
 
 
@@ -46,6 +54,7 @@ export default function Signup() {
     }
   };
 
+  // If the user is logged in, redirect to the home page
   if (loggedIn) {
     return <Navigate to="/" />;
   }
@@ -97,8 +106,8 @@ export default function Signup() {
 
         {/* --------------------login link-------------------- */}
         <p className="link-btn">
-        Have an account?{' '}
-          <Link to="/login">Log in!</Link>
+          Already have an account?{' '}
+          <Link to="/login">Log in</Link>
         </p>
         {showAlert && <div className="err-message">Signup failed</div>}
       </form>

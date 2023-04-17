@@ -1,40 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Navigate, useNavigate } from "react-router-dom";
+import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
 import Auth from '../utils/auth';
-import { getCardioById, getResistanceById, deleteCardio, deleteResistance } from '../utils/Api';
+import { getCardioById, getResistanceById, deleteCardio, deleteResistance } from '../utils/API';
 import { formatDate } from '../utils/dateFormat';
 import Header from "./Header";
 import cardioIcon from "../assets/images/treadmill.png"
 import resistanceIcon from "../assets/images/fitness.png"
 
+
 export default function SingleExercise() {
     const { id, type } = useParams();
     const [cardioData, setCardioData] = useState({})
     const [resistanceData, setResistanceData] = useState({})
+
+
     const loggedIn = Auth.loggedIn();
     const navigate = useNavigate()
 
     useEffect(() => {
         const displayExercise = async (exerciseId) => {
+            //get token
             const token = loggedIn ? Auth.getToken() : null;
             if (!token) return false;
 
             if (type === "cardio") {
                 try {
                     const response = await getCardioById(exerciseId, token);
-                    if (!response.ok) { throw new Error('Error! please try again') }
+                    if (!response.ok) { throw new Error('something went wrong!') }
+
                     const cardio = await response.json()
                     cardio.date = formatDate(cardio.date)
                     setCardioData(cardio)
                 } catch (err) { console.error(err) }
             }
+
             else if (type === "resistance") {
                 try {
                     const response = await getResistanceById(exerciseId, token);
-                    if (!response.ok) { throw new Error('Error! please try again') }
+                    if (!response.ok) { throw new Error('something went wrong!') }
+
                     const resistance = await response.json()
                     resistance.date = formatDate(resistance.date)
                     setResistanceData(resistance)
@@ -43,18 +50,18 @@ export default function SingleExercise() {
         }
         displayExercise(id)
     }, [id, type, loggedIn])
-    
+
     if (!loggedIn) {
         return <Navigate to="/login" />;
     }
 
-    
     const handleDeleteExercise = async (exerciseId) => {
         const token = loggedIn ? Auth.getToken() : null;
         if (!token) return false;
+
         confirmAlert({
             title: "Delete Exercise",
-            message: "Delete this exercise?",
+            message: "Are you sure you want to delete this exercise?",
             buttons: [
                 {
                     label: "Cancel",
@@ -62,13 +69,23 @@ export default function SingleExercise() {
                 {
                     label: "Delete",
                     onClick: async () => {
+ 
                         if (type === "cardio") {
                             try {
                                 const response = await deleteCardio(exerciseId, token);
-                                if (!response.ok) { throw new Error('Error! please try again') }
+                                if (!response.ok) { throw new Error('something went wrong!') }
                             }
                             catch (err) { console.error(err) }
                         }
+
+                        else if (type === "resistance") {
+                            try {
+                                const response = await deleteResistance(exerciseId, token);
+                                if (!response.ok) { throw new Error('something went wrong!') }
+                            }
+                            catch (err) { console.error(err) }
+                        }
+
                         navigate("/history")
                     }
                 }
@@ -103,5 +120,3 @@ export default function SingleExercise() {
 
     )
 }
-
-
